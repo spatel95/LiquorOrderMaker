@@ -1,0 +1,12 @@
+AbstractTextEditor.Color.SelectionBackground=7,54,66
+PHPReadOccurrenceIndicationColor=97,97,97
+PHPWriteOccurrenceIndicationColor=97,97,97
+currentLineColor=0,43,54
+eclipse.preferences.version=1
+filteredSearchResultIndicationColor=7,54,66
+javaScriptOccurrenceIndicationColor=97,97,97
+occurrenceIndicationColor=7,54,66
+org.eclipse.cdt.ui.occurrenceIndicationColor=97,97,97
+overviewRuler_migration=migrated_3.1
+pydevOccurrenceIndicationColor=97,97,97
+writeOccurrenceIndicationColor=7,54,66

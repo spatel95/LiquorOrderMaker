@@ -1,0 +1,23 @@
+smart order for 4 months
+
+total_diff = 0
+
+m2 - m1 = diff<2,1>
+	diff<1,2> + total_diff
+
+m3 - m2 = dif<3,2>
+	diff<3,2> + total_diff
+
+m4 - m3 = diff<4,3>
+	diff<4,3> + total_diff
+
+
+get std div 
+
+Sale Constant "C" = std_div / total_diff
+
+is this right 
+	since if the total diff is neg (meaning we are selling less and less) then the C is neg
+	otherwise pos.
+
+Biggest problem 
