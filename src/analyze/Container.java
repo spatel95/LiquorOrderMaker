@@ -205,11 +205,13 @@ public class Container implements Comparable<Container> {
 		else {
 			Container c = (Container) o;
 
-			if (this.compareTo(c) == 0) {
-				return true;
-			}
+//			if (this.compareTo(c) == 0) {
+//				return true;
+//			}
+//
+//			return false;
 
-			return false;
+			return this.compareTo(c) == 0;
 
 		}
 	

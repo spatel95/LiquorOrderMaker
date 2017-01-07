@@ -15,7 +15,7 @@ public class Main {
 
 		File file = new File("src/" + s.next());
 		Table table = new Table(file);
-
+		System.out.println("TABLE COUnt: "+table.getRecordCount());
 		// try {
 		// table.open();
 		System.out.println("Table Open");

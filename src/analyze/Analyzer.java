@@ -46,6 +46,10 @@ public class Analyzer {
 		return toReturn;
 		
 	}
+
+	public TableMap getMap(){
+        return tableMap;
+    }
 	
 	public ArrayList<Integer> simpleOrderItem(String barcode, int months) throws BrandDoesNotExistException{
 		ArrayList<Integer> list = new ArrayList<>(3);
@@ -56,7 +60,7 @@ public class Analyzer {
 		list.add(tableMap.get(barcode).pastQtySold(months));
 		//list[2] = qty - sum --> how many expecty to order
 		
-		int toOrder = list.get(0)-list.get(1);
+		int toOrder = list.get(1)-list.get(0);
 		if(toOrder < 0){
 			toOrder = 0;
 		}

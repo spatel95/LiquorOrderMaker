@@ -23,7 +23,7 @@ public class TableMap {
 		Container c;
 		String brand;
 		String bar;
-		
+		System.out.println("SIZE: "+size);
 		for (int i = 0; i < size; i++) {
 			Record r = t.getRecordAt(i);
 			c = new Container(r);

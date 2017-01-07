@@ -46,9 +46,7 @@ public class MyWindow extends Application {
 
 	private Scene openScene, mainScene;
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+	public static void main(String[] args) {launch(args);}
 
 	
 	// Start executes the GUI
@@ -93,11 +91,16 @@ public class MyWindow extends Application {
 			public ObservableValue<Boolean> call(String param) {
 				
 				BooleanProperty checkbox = new SimpleBooleanProperty();
+
+                if(checkedMap.containsKey(param)){
+                    System.out.println("SETTING CHECKBOX TO BE TRUE");
+                    checkbox.setValue(true);
+                }
 				
 				//handler adds and removes key/val pairing
 				//NOTE: the listView selection handler is also ran right after this
 				checkbox.addListener((obe,lastBol,newBol)->{
-					
+
 					listView.getSelectionModel().select(param);
 					if(newBol){
 						checkedMap.put(param, new ArrayList<>());
@@ -107,6 +110,8 @@ public class MyWindow extends Application {
 						checkedMap.remove(param);
 						listView.getSelectionModel().clearSelection(listView.getSelectionModel().getSelectedIndex());
 					}
+
+
 					//Debug
 //					System.out.println(param+" ->> "+checkedMap.get(param));
 				});
@@ -172,7 +177,14 @@ public class MyWindow extends Application {
 			@Override
 			public ObservableValue<Boolean> call(Integer param) {
 				if(list.get(param).isSelected()){
-					checkedMap.get(selectedBrand).add(list.get(param));
+                    if(checkedMap.containsKey(selectedBrand)){
+                        checkedMap.get(selectedBrand).add(list.get(param));
+                    }else{
+                        ArrayList<Container> l = new ArrayList<Container>();
+                        l.add(list.get(param));
+                        checkedMap.put(selectedBrand,l);
+
+                    }
 				}else{
 					if(checkedMap.containsKey(selectedBrand)){
 						checkedMap.get(selectedBrand).remove(list.get(param));
@@ -192,7 +204,7 @@ public class MyWindow extends Application {
 		checkBoxCol.setGraphic(selectAll);
 
 		selectAll.setOnAction(e->{
-			for (Container c : list) {		
+			for (Container c : list) {
 				c.setSelected(((CheckBox)e.getSource()).isSelected());
 				if(((CheckBox)e.getSource()).isSelected()){
 					checkedMap.get(c.getBrand()).add(c);
@@ -232,6 +244,9 @@ public class MyWindow extends Application {
 
 	private Node makeOrderController() {
 
+        int BUTTON_NUM = 5;
+
+        double width = (mainStage.getWidth()/BUTTON_NUM) - BUTTON_NUM*5;
 		HBox hButton = new HBox();
 		Button makeOrderButton = new Button("Simple Order List");
 		makeOrderButton.setOnMouseClicked(e->{
@@ -239,13 +254,20 @@ public class MyWindow extends Application {
 			SimpleOrder.display(checkedMap,controller,months);
 		});
 
-		makeOrderButton.setMinWidth(200);
-		
+		makeOrderButton.setMinWidth(width);
+
+		Button popular = new Button("Popularity");
+        popular.setOnMouseClicked(e->{
+            PopularInfo.makeWindow();
+        });
+
+        popular.setMinWidth(width);
+
 		Button smartOrderButton = new Button("Smart Order List");
-		smartOrderButton.setMinWidth(200);
+		smartOrderButton.setMinWidth(width);
 		
-		Button moreInfo = new Button("Seleced Info");
-		moreInfo.setMinWidth(200);
+		Button moreInfo = new Button("Selected Info");
+		moreInfo.setMinWidth(width);
 		
 		moreInfo.setOnMouseClicked(e->{
 			int months = GetInfo.getMonths();
@@ -253,13 +275,13 @@ public class MyWindow extends Application {
 		});
 		
 		checkedMap.keySet();
-		Button stat = new Button("analyze info");
-		stat.setMinWidth(200);
+		Button stat = new Button("Analyze Info");
+		stat.setMinWidth(width);
 		stat.setOnMouseClicked(e->System.out.println(controller.analyzeData(new ArrayList<>(checkedMap.keySet()), 6)));
 
 		hButton.setSpacing(20);
 		hButton.setAlignment(Pos.CENTER);
-		hButton.getChildren().setAll(stat,moreInfo,makeOrderButton, smartOrderButton);
+		hButton.getChildren().setAll(stat,moreInfo,makeOrderButton, smartOrderButton,popular);
 
 		return hButton;
 	}

@@ -93,7 +93,7 @@ public class MyWindowController {
 		}
 	}
 	
-	public ArrayList<Integer> simpleOrderList(String barcode,int months){
+	ArrayList<Integer> simpleOrderList(String barcode, int months){
 		try {
 			return analyzer.simpleOrderItem(barcode, months);
 		} catch (BrandDoesNotExistException e) {
@@ -101,5 +101,9 @@ public class MyWindowController {
 			return new ArrayList<>();
 		}
 	}
+
+	public int getQty(String barcode) throws BrandDoesNotExistException{
+        return analyzer.getMap().get(barcode).getQTY().getValue();
+    }
 	
 }
